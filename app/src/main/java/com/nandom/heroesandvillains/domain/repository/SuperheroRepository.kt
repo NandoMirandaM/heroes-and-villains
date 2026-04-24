@@ -5,6 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface SuperheroRepository {
     fun observeHeroes(limit: Int): Flow<List<SuperheroModel>>
-    fun observeHero(id: Int): Flow<SuperheroModel?>
     suspend fun loadHeroesUntil(limit: Int): Boolean
 }

@@ -21,12 +21,6 @@ class SuperheroRepositoryImp(
         }
     }
 
-    override fun observeHero(id: Int): Flow<SuperheroModel?> {
-        return dao.observeHero(id).map { entity ->
-            entity?.toDomain()
-        }
-    }
-
     override suspend fun loadHeroesUntil(limit: Int): Boolean {
         val localCount = dao.heroCount()
         val currentState = dao.getSyncState() ?: HeroSyncStateEntity()
