@@ -1,5 +1,8 @@
 package com.nandom.heroesandvillains.domain.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class SuperheroModel(
     val id: Int = 0,
     val name: String = "",
