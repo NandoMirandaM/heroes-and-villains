@@ -8,15 +8,25 @@ import com.nandom.heroesandvillains.data.repository.SuperheroRepositoryImp
 import com.nandom.heroesandvillains.domain.repository.SuperheroRepository
 import com.nandom.heroesandvillains.domain.usecase.LoadNextHeroPageUseCase
 import com.nandom.heroesandvillains.domain.usecase.ObserveHeroesUseCase
+import com.nandom.heroesandvillains.presentation.screens.detail.DetailViewModel
+import com.nandom.heroesandvillains.presentation.screens.home.HomeViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import org.koin.core.module.dsl.viewModel
 
 val appModule = module {
+
+    single<CoroutineScope> {
+        CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    }
 
     // Database
     single {
@@ -60,11 +70,18 @@ val appModule = module {
     }
 
     // Use Case
-    single {
-        ObserveHeroesUseCase(get())
+    factory { ObserveHeroesUseCase(get()) }
+    factory { LoadNextHeroPageUseCase(get()) }
+
+    //viewModels
+    viewModel {
+        HomeViewModel(
+            observeHeroes = get(),
+            loadNextHeroPage = get()
+        )
     }
 
-    single {
-        LoadNextHeroPageUseCase(get())
+    viewModel {
+        DetailViewModel()
     }
 }
