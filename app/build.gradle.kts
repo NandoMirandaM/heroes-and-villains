@@ -68,6 +68,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.kt)
+    implementation(libs.androidx.junit.ktx)
     ksp(libs.androidx.room.compiler)
 
     testImplementation(libs.junit)
@@ -78,4 +79,6 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    androidTestImplementation(libs.turbine)
 }
